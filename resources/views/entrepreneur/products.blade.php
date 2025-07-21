@@ -74,10 +74,10 @@
 
 <!-- Products Section Begin -->
 <section class="shoping-cart spad">
-    <div class="container">
+    <div class="container-fluid px-2 px-md-4">
         <div class="row">
-            <div class="col-lg-12">
-                <div class="shoping__cart__table">
+            <div class="col-12">
+                <div class="shoping__cart__table table-responsive">
                     @if(session('success'))
                         <div class="alert alert-success">{{ session('success') }}</div>
                     @endif
@@ -93,98 +93,93 @@
                             </ul>
                         </div>
                     @endif
-                    <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h4>Vos produits</h4>
+                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4 gap-2">
+                        <h4 class="mb-0">Vos produits</h4>
                         <button class="btn btn-primary" data-toggle="modal" data-target="#addProductModal">
                             <i class="fa fa-plus"></i> Ajouter un produit
                         </button>
                     </div>
                     @if($products->count())
-                        <table class="table table-bordered table-hover align-middle">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>Image</th>
-                                    <th>Nom</th>
-                                    <th>Description</th>
-                                    <th>Prix</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($products as $product)
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover align-middle mb-0">
+                                <thead class="table-light">
                                     <tr>
-                                        <td style="width: 120px;">
-                                            <img src="{{ asset('storage/' . $product->image_url) }}" alt="{{ $product->name }}" class="img-thumbnail" style="max-width: 100px;">
-                                        </td>
-                                        <td>{{ $product->nom }}</td>
-                                        <td>{{ $product->description }}</td>
-                                        <td>{{ number_format($product->prix, 2) }} €</td>
-                                        <td>
-                                            <a href="{{ route('entrepreneur.products.edit', $product->id) }}" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i> Modifier</a>
-                                            <form action="{{ route('entrepreneur.products.delete', $product->id) }}" method="POST" style="display:inline-block;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?')">
-                                                    <i class="fa fa-trash"></i> Supprimer
-                                                </button>
-                                            </form>
-                                        </td>
+                                        <th>Image</th>
+                                        <th>Nom</th>
+                                        <th>Description</th>
+                                        <th>Prix</th>
+                                        <th>Actions</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach($products as $product)
+                                        <tr>
+                                            <td style="width: 120px;">
+                                                <img src="{{ asset('storage/' . $product->image_url) }}" alt="{{ $product->name }}" class="img-thumbnail" style="max-width: 100px;">
+                                            </td>
+                                            <td>{{ $product->nom }}</td>
+                                            <td>{{ $product->description }}</td>
+                                            <td>{{ number_format($product->prix, 2) }} €</td>
+                                            <td>
+                                                <a href="{{ route('entrepreneur.products.edit', $product->id) }}" class="btn btn-sm btn-warning mb-1">Modifier</a>
+                                                <form action="{{ route('entrepreneur.products.delete', $product->id) }}" method="POST" class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-danger mb-1" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?')">Supprimer</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     @else
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="text-center py-5">
-                                    <i class="fa fa-shopping-bag fa-4x text-muted mb-4"></i>
-                                    <h4 class="text-muted">Aucun produit pour l'instant</h4>
-                                    <p class="text-muted mb-4">Commencez par ajouter votre premier produit pour commencer à vendre sur la plateforme.</p>
-                                    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addProductModal">
-                                        <i class="fa fa-plus"></i> Ajouter votre premier produit
-                                    </button>
-                                </div>
-                            </div>
+                        <div class="text-center py-5">
+                            <i class="fa fa-info-circle fa-3x text-muted mb-3"></i>
+                            <h5 class="text-muted">Aucun produit pour l'instant</h5>
+                            <p class="text-muted">Ajoutez un produit pour commencer à vendre.</p>
                         </div>
                     @endif
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Add Product Modal -->
-    <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form method="POST" action="{{ route('entrepreneur.products.store') }}" enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addProductModalLabel">Ajouter un produit</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="nom" class="form-label">Nom du produit</label>
-                            <input type="text" class="form-control" id="nom" name="nom" required value="{{ old('nom') }}">
+        <!-- Add Product Modal -->
+        <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <form method="POST" action="{{ route('entrepreneur.products.store') }}" enctype="multipart/form-data">
+                        @csrf
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addProductModalLabel">Ajouter un produit</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
-                        <div class="mb-3">
-                            <label for="description" class="form-label">Description</label>
-                            <textarea class="form-control" id="description" name="description" rows="3" required>{{ old('description') }}</textarea>
+                        <div class="modal-body">
+                            <div class="form-group mb-3">
+                                <label for="nom" class="form-label">Nom du produit</label>
+                                <input type="text" class="form-control" id="nom" name="nom" required value="{{ old('nom') }}">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="description" class="form-label">Description</label>
+                                <textarea class="form-control" id="description" name="description" rows="3" required>{{ old('description') }}</textarea>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="prix" class="form-label">Prix (€)</label>
+                                <input type="number" step="0.01" class="form-control" id="prix" name="prix" required value="{{ old('prix') }}">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="image" class="form-label">Image du produit</label>
+                                <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="prix" class="form-label">Prix (€)</label>
-                            <input type="number" step="0.01" class="form-control" id="prix" name="prix" required value="{{ old('prix') }}">
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                            <button type="submit" class="btn btn-primary">Ajouter</button>
                         </div>
-                        <div class="mb-3">
-                            <label for="image" class="form-label">Image du produit</label>
-                            <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                        <button type="submit" class="btn btn-primary">Ajouter</button>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

@@ -6,52 +6,50 @@
 <!-- Header Section Begin -->
 <header class="header">
     <div class="header__top">
-        <div class="container">
+        <div class="container-fluid px-2 px-md-4">
             <div class="row">
-                <div class="col-lg-6 col-md-6">
+                <div class="col-12 col-md-6">
                     <div class="header__top__left">
-                        <ul>
-                            <li><i class="fa fa-envelope"></i> {{ $entrepreneur->email }}</li>
+                        <ul class="mb-0 d-flex flex-wrap">
+                            <li class="mr-3"><i class="fa fa-envelope"></i> {{ $entrepreneur->email }}</li>
                             <li>Bienvenue, {{ $entrepreneur->nom_entreprise }} !</li>
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-6">
-                    <div class="header__top__right">
-                        <div class="header__top__right__auth">
-                            <form method="POST" action="{{ route('entrepreneur.logout') }}" style="display: inline;">
-                                @csrf
-                                <button type="submit" class="btn btn-link text-white p-0" style="text-decoration: none;">
-                                    <i class="fa fa-sign-out"></i> Logout
-                                </button>
-                            </form>
-                        </div>
+                <div class="col-12 col-md-6 text-md-right mt-2 mt-md-0">
+                    <div class="header__top__right__auth">
+                        <form method="POST" action="{{ route('entrepreneur.logout') }}" style="display: inline;">
+                            @csrf
+                            <button type="submit" class="btn btn-link text-white p-0" style="text-decoration: none;">
+                                <i class="fa fa-sign-out"></i> Déconnexion
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3">
+    <div class="container-fluid px-2 px-md-4">
+        <div class="row align-items-center">
+            <div class="col-12 col-lg-3 text-center text-lg-left mb-2 mb-lg-0">
                 <div class="header__logo">
                     <a href="{{ route('entrepreneur.dashboard') }}">
                         <h3 class="text-success">Eat&Drink</h3>
                     </a>
                 </div>
             </div>
-            <div class="col-lg-6">
+            <div class="col-12 col-lg-6 mb-2 mb-lg-0">
                 <nav class="header__menu">
-                    <ul>
-                        <li class="active"><a href="{{ route('entrepreneur.dashboard') }}">Dashboard</a></li>
-                        <li><a href="{{ route('entrepreneur.products') }}">Products</a></li>
-                        <li><a href="{{ route('entrepreneur.orders') }}">Orders</a></li>
+                    <ul class="d-flex flex-wrap justify-content-center mb-0">
+                        <li class="active mx-2"><a href="{{ route('entrepreneur.dashboard') }}">Dashboard</a></li>
+                        <li class="mx-2"><a href="{{ route('entrepreneur.products') }}">Produits</a></li>
+                        <li class="mx-2"><a href="{{ route('entrepreneur.orders') }}">Commandes</a></li>
                     </ul>
                 </nav>
             </div>
-            <div class="col-lg-3">
+            <div class="col-12 col-lg-3 text-center text-lg-right">
                 <div class="header__cart">
-                    <ul>
+                    <ul class="mb-0 d-flex flex-wrap justify-content-center justify-content-lg-end">
                         <li>Statut :
                             @if($entrepreneur->isApproved())
                                 <span class="badge badge-success">Approuvé</span>
@@ -113,8 +111,8 @@
 
         <!-- Dashboard Stats -->
         <div class="row mb-5">
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card border-0 shadow-sm">
+            <div class="col-12 col-md-6 col-lg-4 mb-4">
+                <div class="card border-0 shadow-sm h-100">
                     <div class="card-body text-center">
                         <div class="text-primary mb-3">
                             <i class="fa fa-shopping-bag fa-3x"></i>
@@ -128,8 +126,8 @@
                 </div>
             </div>
             
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card border-0 shadow-sm">
+            <div class="col-12 col-md-6 col-lg-4 mb-4">
+                <div class="card border-0 shadow-sm h-100">
                     <div class="card-body text-center">
                         <div class="text-success mb-3">
                             <i class="fa fa-shopping-cart fa-3x"></i>
@@ -143,16 +141,16 @@
                 </div>
             </div>
             
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card border-0 shadow-sm">
+            <div class="col-12 col-lg-4 mb-4">
+                <div class="card border-0 shadow-sm h-100">
                     <div class="card-body text-center">
                         <div class="text-warning mb-3">
                             <i class="fa fa-clock-o fa-3x"></i>
                         </div>
-                        <h3 class="card-title">{{ $pendingOrders }}</h3>
-                        <p class="card-text text-muted">Commandes en attente</p>
-                        <a href="{{ route('entrepreneur.orders') }}" class="btn btn-outline-warning btn-sm">
-                            Traiter les commandes
+                        <h3 class="card-title">0</h3>
+                        <p class="card-text text-muted">En attente</p>
+                        <a href="#" class="btn btn-outline-warning btn-sm disabled">
+                            À venir
                         </a>
                     </div>
                 </div>
@@ -199,15 +197,15 @@
 
         <!-- Recent Activity -->
         <div class="row mt-5">
-            <div class="col-lg-12">
+            <div class="col-12">
                 <h4 class="mb-4">Activité récente</h4>
                 <div class="card">
                     <div class="card-body">
                         @if(isset($recentProducts) && $recentProducts->count())
                             <ul class="list-group list-group-flush">
                                 @foreach($recentProducts as $product)
-                                    <li class="list-group-item d-flex align-items-center">
-                                        <img src="{{ asset('storage/' . $product->image_url) }}" alt="{{ $product->name }}" class="img-thumbnail mr-3" style="max-width: 60px;">
+                                    <li class="list-group-item d-flex align-items-center flex-wrap flex-md-nowrap">
+                                        <img src="{{ asset('storage/' . $product->image_url) }}" alt="{{ $product->name }}" class="img-thumbnail mr-3 mb-2 mb-md-0" style="max-width: 60px;">
                                         <div>
                                             <strong>{{ $product->name }}</strong><br>
                                             <small class="text-muted">Ajouté le {{ $product->created_at->format('d/m/Y H:i') }}</small>

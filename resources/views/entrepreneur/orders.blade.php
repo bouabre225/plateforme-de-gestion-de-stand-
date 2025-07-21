@@ -74,31 +74,63 @@
 
 <!-- Orders Section Begin -->
 <section class="shoping-cart spad">
-    <div class="container">
+    <div class="container-fluid px-2 px-md-4">
         <div class="row">
-            <div class="col-lg-12">
-                <div class="shoping__cart__table">
-                    <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h4>Commandes clients</h4>
+            <div class="col-12">
+                <div class="shoping__cart__table table-responsive">
+                    @if(session('success'))
+                        <div class="alert alert-success">{{ session('success') }}</div>
+                    @endif
+                    @if(session('error'))
+                        <div class="alert alert-danger">{{ session('error') }}</div>
+                    @endif
+                    @if($errors->any())
+                        <div class="alert alert-danger">
+                            <ul class="mb-0">
+                                @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4 gap-2">
+                        <h4 class="mb-0">Commandes clients</h4>
                         <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-outline-primary active">Toutes</button>
-                            <button type="button" class="btn btn-outline-warning">En attente</button>
-                            <button type="button" class="btn btn-outline-success">Terminées</button>
+                            <button class="btn btn-outline-primary btn-sm">Toutes</button>
+                            <button class="btn btn-outline-warning btn-sm">En attente</button>
+                            <button class="btn btn-outline-success btn-sm">Terminées</button>
                         </div>
                     </div>
-                    
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="text-center py-5">
-                                <i class="fa fa-shopping-cart fa-4x text-muted mb-4"></i>
-                                <h4 class="text-muted">Aucune commande pour l'instant</h4>
-                                <p class="text-muted mb-4">Les commandes des clients apparaîtront ici dès que vous en recevrez.</p>
-                                <a href="{{ route('entrepreneur.products') }}" class="btn btn-primary btn-lg">
-                                    <i class="fa fa-plus"></i> Ajouter des produits pour commencer à vendre
-                                </a>
-                            </div>
+                    @if($orders->count())
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Date</th>
+                                        <th>Détails</th>
+                                        <th>Statut</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($orders as $order)
+                                        <tr>
+                                            <td>{{ $order->id }}</td>
+                                            <td>{{ $order->date_commande->format('d/m/Y H:i') }}</td>
+                                            <td>{{ json_encode($order->details_commande) }}</td>
+                                            <td><span class="badge badge-info">En attente</span></td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
-                    </div>
+                    @else
+                        <div class="text-center py-5">
+                            <i class="fa fa-info-circle fa-3x text-muted mb-3"></i>
+                            <h5 class="text-muted">Aucune commande pour l'instant</h5>
+                            <p class="text-muted">Ajouter des produits pour commencer à vendre.</p>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

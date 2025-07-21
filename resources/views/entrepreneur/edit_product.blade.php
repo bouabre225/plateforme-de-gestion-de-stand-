@@ -10,9 +10,9 @@
     <!-- ... breadcrumb code unchanged ... -->
 </section>
 <section class="shoping-cart spad">
-    <div class="container">
+    <div class="container-fluid px-2 px-md-4">
         <div class="row justify-content-center">
-            <div class="col-lg-8">
+            <div class="col-12 col-md-10 col-lg-8">
                 <div class="card">
                     <div class="card-header bg-primary text-white">
                         <h5 class="mb-0">Modifier le produit</h5>
@@ -35,19 +35,19 @@
                         @endif
                         <form method="POST" action="{{ route('entrepreneur.products.update', $product->id) }}" enctype="multipart/form-data">
                             @csrf
-                            <div class="mb-3">
+                            <div class="form-group mb-3">
                                 <label for="nom" class="form-label">Nom du produit</label>
                                 <input type="text" class="form-control" id="nom" name="nom" required value="{{ old('nom', $product->nom) }}">
                             </div>
-                            <div class="mb-3">
+                            <div class="form-group mb-3">
                                 <label for="description" class="form-label">Description</label>
                                 <textarea class="form-control" id="description" name="description" rows="3" required>{{ old('description', $product->description) }}</textarea>
                             </div>
-                            <div class="mb-3">
+                            <div class="form-group mb-3">
                                 <label for="prix" class="form-label">Prix (€)</label>
                                 <input type="number" step="0.01" class="form-control" id="prix" name="prix" required value="{{ old('prix', $product->prix) }}">
                             </div>
-                            <div class="mb-3">
+                            <div class="form-group mb-3">
                                 <label for="image" class="form-label">Image du produit</label>
                                 <input type="file" class="form-control" id="image" name="image" accept="image/*">
                                 @if($product->image_url)
@@ -56,8 +56,8 @@
                                     </div>
                                 @endif
                             </div>
-                            <div class="d-flex justify-content-between">
-                                <a href="{{ route('entrepreneur.products') }}" class="btn btn-secondary">Retour aux produits</a>
+                            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2 mt-4">
+                                <a href="{{ route('entrepreneur.products') }}" class="btn btn-secondary mb-2 mb-md-0">Retour aux produits</a>
                                 <button type="submit" class="btn btn-primary">Mettre à jour</button>
                             </div>
                         </form>
