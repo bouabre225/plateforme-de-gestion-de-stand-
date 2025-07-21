@@ -164,16 +164,16 @@
                     </div>
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label for="name" class="form-label">Product Name</label>
-                            <input type="text" class="form-control" id="name" name="name" required value="{{ old('name') }}">
+                            <label for="nom" class="form-label">Nom du produit</label>
+                            <input type="text" class="form-control" id="nom" name="nom" required value="{{ old('nom') }}">
                         </div>
                         <div class="mb-3">
                             <label for="description" class="form-label">Description</label>
                             <textarea class="form-control" id="description" name="description" rows="3" required>{{ old('description') }}</textarea>
                         </div>
                         <div class="mb-3">
-                            <label for="price" class="form-label">Price (€)</label>
-                            <input type="number" step="0.01" class="form-control" id="price" name="price" required value="{{ old('price') }}">
+                            <label for="prix" class="form-label">Prix (€)</label>
+                            <input type="number" step="0.01" class="form-control" id="prix" name="prix" required value="{{ old('prix') }}">
                         </div>
                         <div class="mb-3">
                             <label for="image" class="form-label">Product Image</label>

@@ -19,7 +19,7 @@ class EntrepreneurDashboardController extends Controller
     public function index()
     {
         $entrepreneur = Auth::guard('entrepreneur')->user();
-        $stand = Stand::where('user_id', $entrepreneur->id)->first();
+        $stand = Stand::where('utilisateur_id', $entrepreneur->id)->first();
         $products = $stand ? $stand->products()->latest()->get() : collect();
         $totalProducts = $products->count();
         $recentProducts = $products->take(5); // Show 5 most recent
@@ -40,7 +40,7 @@ class EntrepreneurDashboardController extends Controller
     public function products()
     {
         $entrepreneur = Auth::guard('entrepreneur')->user();
-        $stand = Stand::where('user_id', $entrepreneur->id)->first();
+        $stand = Stand::where('utilisateur_id', $entrepreneur->id)->first();
         $products = $stand ? $stand->products : collect();
         return view('entrepreneur.products', compact('entrepreneur', 'products'));
     }
@@ -51,21 +51,21 @@ class EntrepreneurDashboardController extends Controller
     public function storeProduct(Request $request)
     {
         $entrepreneur = Auth::guard('entrepreneur')->user();
-        $stand = Stand::where('user_id', $entrepreneur->id)->first();
+        $stand = Stand::where('utilisateur_id', $entrepreneur->id)->first();
         if (!$stand) {
             return redirect()->back()->with('error', 'You do not have a stand.');
         }
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
+            'nom' => 'required|string|max:255',
             'description' => 'required|string',
-            'price' => 'required|numeric|min:0',
+            'prix' => 'required|numeric|min:0',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
         $imagePath = $request->file('image')->store('products', 'public');
         $product = $stand->products()->create([
-            'name' => $validated['name'],
+            'nom' => $validated['nom'],
             'description' => $validated['description'],
-            'price' => $validated['price'],
+            'prix' => $validated['prix'],
             'image_url' => $imagePath,
         ]);
         return redirect()->route('entrepreneur.products')->with('success', 'Product added successfully!');
@@ -77,7 +77,7 @@ class EntrepreneurDashboardController extends Controller
     public function editProduct($id)
     {
         $entrepreneur = Auth::guard('entrepreneur')->user();
-        $stand = Stand::where('user_id', $entrepreneur->id)->first();
+        $stand = Stand::where('utilisateur_id', $entrepreneur->id)->first();
         $product = $stand ? $stand->products()->findOrFail($id) : null;
         if (!$product) {
             return redirect()->route('entrepreneur.products')->with('error', 'Product not found.');
@@ -91,7 +91,7 @@ class EntrepreneurDashboardController extends Controller
     public function updateProduct(Request $request, $id)
     {
         $entrepreneur = Auth::guard('entrepreneur')->user();
-        $stand = Stand::where('user_id', $entrepreneur->id)->first();
+        $stand = Stand::where('utilisateur_id', $entrepreneur->id)->first();
         $product = $stand ? $stand->products()->findOrFail($id) : null;
         if (!$product) {
             return redirect()->route('entrepreneur.products')->with('error', 'Product not found.');
@@ -123,7 +123,7 @@ class EntrepreneurDashboardController extends Controller
     public function deleteProduct($id)
     {
         $entrepreneur = Auth::guard('entrepreneur')->user();
-        $stand = Stand::where('user_id', $entrepreneur->id)->first();
+        $stand = Stand::where('utilisateur_id', $entrepreneur->id)->first();
         $product = $stand ? $stand->products()->findOrFail($id) : null;
         if (!$product) {
             return redirect()->route('entrepreneur.products')->with('error', 'Product not found.');
@@ -141,7 +141,7 @@ class EntrepreneurDashboardController extends Controller
     public function orders(Request $request)
     {
         $entrepreneur = Auth::guard('entrepreneur')->user();
-        $stand = Stand::where('user_id', $entrepreneur->id)->first();
+        $stand = Stand::where('utilisateur_id', $entrepreneur->id)->first();
         $orders = $stand ? $stand->orders()->latest()->get() : collect();
         // Optionally filter by status if implemented later
         return view('entrepreneur.orders', compact('entrepreneur', 'orders'));
