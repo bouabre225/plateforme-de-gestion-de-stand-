@@ -31,7 +31,12 @@ Route::prefix('entrepreneur')->name('entrepreneur.')->group(function () {
     Route::middleware('auth:entrepreneur')->group(function () {
         Route::get('/dashboard', [EntrepreneurDashboardController::class, 'index'])->name('dashboard');
         Route::get('/products', [EntrepreneurDashboardController::class, 'products'])->name('products');
+        Route::post('/products', [EntrepreneurDashboardController::class, 'storeProduct'])->name('products.store');
+        Route::get('/products/{id}/edit', [EntrepreneurDashboardController::class, 'editProduct'])->name('products.edit');
+        Route::post('/products/{id}/update', [EntrepreneurDashboardController::class, 'updateProduct'])->name('products.update');
+        Route::delete('/products/{id}', [EntrepreneurDashboardController::class, 'deleteProduct'])->name('products.delete');
         Route::get('/orders', [EntrepreneurDashboardController::class, 'orders'])->name('orders');
         Route::post('/logout', [EntrepreneurAuthController::class, 'logout'])->name('logout');
     });
 });
+                                                                    
