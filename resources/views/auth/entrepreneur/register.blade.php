@@ -44,12 +44,12 @@
                                 <div class="checkout__input">
                                     <p>Enterprise Name<span>*</span></p>
                                     <input type="text" 
-                                           name="enterprise_name" 
-                                           value="{{ old('enterprise_name') }}" 
+                                           name="nom_entreprise" 
+                                           value="{{ old('nom_entreprise') }}" 
                                            required 
-                                           class="form-control @error('enterprise_name') is-invalid @enderror"
-                                           placeholder="Enter your enterprise name">
-                                    @error('enterprise_name')
+                                           class="form-control @error('nom_entreprise') is-invalid @enderror"
+                                           placeholder="Entrez le nom de votre entreprise">
+                                    @error('nom_entreprise')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -78,11 +78,11 @@
                                 <div class="checkout__input">
                                     <p>Password<span>*</span></p>
                                     <input type="password" 
-                                           name="password" 
+                                           name="mot_de_passe" 
                                            required 
-                                           class="form-control @error('password') is-invalid @enderror"
-                                           placeholder="Enter your password">
-                                    @error('password')
+                                           class="form-control @error('mot_de_passe') is-invalid @enderror"
+                                           placeholder="Entrez votre mot de passe">
+                                    @error('mot_de_passe')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -91,18 +91,13 @@
                                 <div class="checkout__input">
                                     <p>Confirm Password<span>*</span></p>
                                     <input type="password" 
-                                           name="password_confirmation" 
+                                           name="mot_de_passe_confirmation" 
                                            required 
                                            class="form-control"
-                                           placeholder="Confirm your password">
+                                           placeholder="Confirmez votre mot de passe">
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Hidden fields as requested -->
-                        <input type="hidden" name="role" value="entrepreneur_waiting_approval">
-                        <input type="hidden" name="status" value="waiting">
-                        <input type="hidden" name="rejection_reason" value="">
 
                         <div class="row mt-4">
                             <div class="col-lg-12">
