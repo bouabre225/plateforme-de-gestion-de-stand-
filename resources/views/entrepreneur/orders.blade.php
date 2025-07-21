@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Order Management - Eat&Drink Platform')
+@section('title', 'Gestion des commandes - Plateforme Eat&Drink')
 
 @section('content')
 <!-- Header Section Begin -->
@@ -12,7 +12,7 @@
                     <div class="header__top__left">
                         <ul>
                             <li><i class="fa fa-envelope"></i> {{ $entrepreneur->email }}</li>
-                            <li>Welcome, {{ $entrepreneur->enterprise_name }}!</li>
+                            <li>Bienvenue, {{ $entrepreneur->nom_entreprise }} !</li>
                         </ul>
                     </div>
                 </div>
@@ -44,8 +44,8 @@
                 <nav class="header__menu">
                     <ul>
                         <li><a href="{{ route('entrepreneur.dashboard') }}">Dashboard</a></li>
-                        <li><a href="{{ route('entrepreneur.products') }}">Products</a></li>
-                        <li class="active"><a href="{{ route('entrepreneur.orders') }}">Orders</a></li>
+                        <li><a href="{{ route('entrepreneur.products') }}">Produits</a></li>
+                        <li class="active"><a href="{{ route('entrepreneur.orders') }}">Commandes</a></li>
                     </ul>
                 </nav>
             </div>
@@ -60,7 +60,7 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="breadcrumb__text">
-                    <h2>Order Management</h2>
+                    <h2>Gestion des commandes</h2>
                     <div class="breadcrumb__option">
                         <a href="{{ route('entrepreneur.dashboard') }}">Dashboard</a>
                         <span>Orders</span>
@@ -79,11 +79,11 @@
             <div class="col-lg-12">
                 <div class="shoping__cart__table">
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h4>Customer Orders</h4>
+                        <h4>Commandes clients</h4>
                         <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-outline-primary active">All Orders</button>
-                            <button type="button" class="btn btn-outline-warning">Pending</button>
-                            <button type="button" class="btn btn-outline-success">Completed</button>
+                            <button type="button" class="btn btn-outline-primary active">Toutes</button>
+                            <button type="button" class="btn btn-outline-warning">En attente</button>
+                            <button type="button" class="btn btn-outline-success">Terminées</button>
                         </div>
                     </div>
                     
@@ -91,10 +91,10 @@
                         <div class="card-body">
                             <div class="text-center py-5">
                                 <i class="fa fa-shopping-cart fa-4x text-muted mb-4"></i>
-                                <h4 class="text-muted">No Orders Yet</h4>
-                                <p class="text-muted mb-4">Orders from customers will appear here once you start receiving them.</p>
+                                <h4 class="text-muted">Aucune commande pour l'instant</h4>
+                                <p class="text-muted mb-4">Les commandes des clients apparaîtront ici dès que vous en recevrez.</p>
                                 <a href="{{ route('entrepreneur.products') }}" class="btn btn-primary btn-lg">
-                                    <i class="fa fa-plus"></i> Add Products to Start Selling
+                                    <i class="fa fa-plus"></i> Ajouter des produits pour commencer à vendre
                                 </a>
                             </div>
                         </div>

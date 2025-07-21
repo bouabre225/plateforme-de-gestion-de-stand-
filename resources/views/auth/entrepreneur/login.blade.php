@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Entrepreneur Login - Eat&Drink Platform')
+@section('title', 'Connexion Entrepreneur - Plateforme Eat&Drink')
 
 @section('content')
 <section class="breadcrumb-section set-bg" data-setbg="{{ asset('img/breadcrumb.jpg') }}">
@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="breadcrumb__text">
-                    <h2>Entrepreneur Login</h2>
+                    <h2 class="text-center mb-4">Connexion à votre espace entrepreneur</h2>
                     <div class="breadcrumb__option">
                         <a href="{{ url('/') }}">Home</a>
                         <span>Login</span>
@@ -49,14 +49,8 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="checkout__input">
-                                    <p>Email Address<span>*</span></p>
-                                    <input type="email" 
-                                           name="email" 
-                                           value="{{ old('email') }}" 
-                                           required 
-                                           class="form-control @error('email') is-invalid @enderror"
-                                           placeholder="Enter your email address"
-                                           autofocus>
+                                    <label for="email">Adresse e-mail</label>
+                                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus placeholder="Entrez votre e-mail">
                                     @error('email')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -67,12 +61,8 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="checkout__input">
-                                    <p>Password<span>*</span></p>
-                                    <input type="password" 
-                                           name="password" 
-                                           required 
-                                           class="form-control @error('password') is-invalid @enderror"
-                                           placeholder="Enter your password">
+                                    <label for="mot_de_passe">Mot de passe</label>
+                                    <input id="mot_de_passe" type="password" class="form-control" name="mot_de_passe" required placeholder="Entrez votre mot de passe">
                                     @error('password')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -94,17 +84,13 @@
 
                         <div class="row mt-4">
                             <div class="col-lg-12">
-                                <button type="submit" class="site-btn btn-block">
-                                    <i class="fa fa-sign-in"></i> Login to Dashboard
-                                </button>
+                                <button type="submit" class="btn btn-primary btn-block">Se connecter</button>
                             </div>
                         </div>
 
                         <div class="row mt-3">
                             <div class="col-lg-12 text-center">
-                                <p>Don't have an account? 
-                                    <a href="{{ route('entrepreneur.register') }}" class="text-primary">Register here</a>
-                                </p>
+                                <p class="mt-3">Vous n'avez pas de compte ? <a href="{{ route('entrepreneur.register') }}">Inscrivez-vous ici</a></p>
                                 <p>
                                     <a href="#" class="text-primary">Forgot your password?</a>
                                 </p>

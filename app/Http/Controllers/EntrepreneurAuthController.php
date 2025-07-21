@@ -83,8 +83,8 @@ class EntrepreneurAuthController extends Controller
             $entrepreneur = Auth::guard('entrepreneur')->user();
             
             // Check if entrepreneur is rejected
-            if ($entrepreneur->isRejected()) {
-                Auth::guard('entrepreneur')->logout();
+            if ($entrepreneur->statut === 'Rejeté') {
+                Auth::guard('entrepreneur')->                                                                                                                                                                                                                                                                                                                                                                   logout();
                 return redirect()->back()->withErrors([
                     'email' => 'Votre compte a été rejeté. Raison : ' . $entrepreneur->raison_rejet
                 ]);

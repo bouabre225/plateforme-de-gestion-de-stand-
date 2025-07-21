@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Entrepreneur Dashboard - Eat&Drink Platform')
+@section('title', 'Tableau de bord Entrepreneur - Plateforme Eat&Drink')
 
 @section('content')
 <!-- Header Section Begin -->
@@ -12,7 +12,7 @@
                     <div class="header__top__left">
                         <ul>
                             <li><i class="fa fa-envelope"></i> {{ $entrepreneur->email }}</li>
-                            <li>Welcome, {{ $entrepreneur->enterprise_name }}!</li>
+                            <li>Bienvenue, {{ $entrepreneur->nom_entreprise }} !</li>
                         </ul>
                     </div>
                 </div>
@@ -52,13 +52,13 @@
             <div class="col-lg-3">
                 <div class="header__cart">
                     <ul>
-                        <li>Status: 
+                        <li>Statut :
                             @if($entrepreneur->isApproved())
-                                <span class="badge badge-success">Approved</span>
+                                <span class="badge badge-success">Approuvé</span>
                             @elseif($entrepreneur->isWaitingApproval())
-                                <span class="badge badge-warning">Pending Approval</span>
+                                <span class="badge badge-warning">En attente d'approbation</span>
                             @else
-                                <span class="badge badge-danger">Rejected</span>
+                                <span class="badge badge-danger">Rejeté</span>
                             @endif
                         </li>
                     </ul>
@@ -75,9 +75,9 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="breadcrumb__text">
-                    <h2>Entrepreneur Dashboard</h2>
+                    <h2>Tableau de bord Entrepreneur</h2>
                     <div class="breadcrumb__option">
-                        <span>{{ $entrepreneur->enterprise_name }}</span>
+                        <span>{{ $entrepreneur->nom_entreprise }}</span>
                     </div>
                 </div>
             </div>
@@ -100,14 +100,14 @@
 
         @if($entrepreneur->isWaitingApproval())
             <div class="alert alert-warning" role="alert">
-                <h5><i class="fa fa-clock-o"></i> Account Pending Approval</h5>
-                <p>Your entrepreneur account is currently pending approval. You can manage your products and view orders, but some features may be limited until your account is approved by an administrator.</p>
+                <h5><i class="fa fa-clock-o"></i> Compte en attente d'approbation</h5>
+                <p>Votre compte entrepreneur est actuellement en attente d'approbation. Vous pouvez gérer vos produits et voir les commandes, mais certaines fonctionnalités peuvent être limitées jusqu'à ce que votre compte soit approuvé par un administrateur.</p>
             </div>
         @elseif($entrepreneur->isRejected())
             <div class="alert alert-danger" role="alert">
-                <h5><i class="fa fa-times-circle"></i> Account Rejected</h5>
-                <p><strong>Reason:</strong> {{ $entrepreneur->rejection_reason }}</p>
-                <p>Please contact support for more information.</p>
+                <h5><i class="fa fa-times-circle"></i> Compte rejeté</h5>
+                <p><strong>Raison :</strong> {{ $entrepreneur->rejection_reason }}</p>
+                <p>Veuillez contacter le support pour plus d'informations.</p>
             </div>
         @endif
 
@@ -120,9 +120,9 @@
                             <i class="fa fa-shopping-bag fa-3x"></i>
                         </div>
                         <h3 class="card-title">{{ $totalProducts }}</h3>
-                        <p class="card-text text-muted">Total Products</p>
+                        <p class="card-text text-muted">Produits au total</p>
                         <a href="{{ route('entrepreneur.products') }}" class="btn btn-outline-primary btn-sm">
-                            Manage Products
+                            Gérer les produits
                         </a>
                     </div>
                 </div>
@@ -135,9 +135,9 @@
                             <i class="fa fa-shopping-cart fa-3x"></i>
                         </div>
                         <h3 class="card-title">{{ $totalOrders }}</h3>
-                        <p class="card-text text-muted">Total Orders</p>
+                        <p class="card-text text-muted">Commandes au total</p>
                         <a href="{{ route('entrepreneur.orders') }}" class="btn btn-outline-success btn-sm">
-                            View Orders
+                            Voir les commandes
                         </a>
                     </div>
                 </div>
@@ -150,9 +150,9 @@
                             <i class="fa fa-clock-o fa-3x"></i>
                         </div>
                         <h3 class="card-title">{{ $pendingOrders }}</h3>
-                        <p class="card-text text-muted">Pending Orders</p>
+                        <p class="card-text text-muted">Commandes en attente</p>
                         <a href="{{ route('entrepreneur.orders') }}" class="btn btn-outline-warning btn-sm">
-                            Process Orders
+                            Traiter les commandes
                         </a>
                     </div>
                 </div>
@@ -163,17 +163,17 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="shoping__cart__table">
-                    <h4 class="mb-4">Quick Actions</h4>
+                    <h4 class="mb-4">Actions rapides</h4>
                     <div class="row">
                         <div class="col-lg-6 mb-3">
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title">
-                                        <i class="fa fa-plus-circle text-primary"></i> Add New Product
+                                        <i class="fa fa-plus-circle text-primary"></i> Ajouter un produit
                                     </h5>
-                                    <p class="card-text">Add a new product to your catalog and start selling.</p>
+                                    <p class="card-text">Ajoutez un nouveau produit à votre catalogue et commencez à vendre.</p>
                                     <a href="{{ route('entrepreneur.products') }}" class="btn btn-primary">
-                                        Add Product
+                                        Ajouter un produit
                                     </a>
                                 </div>
                             </div>
@@ -183,11 +183,11 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title">
-                                        <i class="fa fa-list-alt text-success"></i> Manage Orders
+                                        <i class="fa fa-list-alt text-success"></i> Gérer les commandes
                                     </h5>
-                                    <p class="card-text">View and manage customer orders for your products.</p>
+                                    <p class="card-text">Consultez et gérez les commandes clients pour vos produits.</p>
                                     <a href="{{ route('entrepreneur.orders') }}" class="btn btn-success">
-                                        View Orders
+                                        Voir les commandes
                                     </a>
                                 </div>
                             </div>
@@ -200,7 +200,7 @@
         <!-- Recent Activity -->
         <div class="row mt-5">
             <div class="col-lg-12">
-                <h4 class="mb-4">Recent Activity</h4>
+                <h4 class="mb-4">Activité récente</h4>
                 <div class="card">
                     <div class="card-body">
                         @if(isset($recentProducts) && $recentProducts->count())
@@ -210,7 +210,7 @@
                                         <img src="{{ asset('storage/' . $product->image_url) }}" alt="{{ $product->name }}" class="img-thumbnail mr-3" style="max-width: 60px;">
                                         <div>
                                             <strong>{{ $product->name }}</strong><br>
-                                            <small class="text-muted">Added on {{ $product->created_at->format('d/m/Y H:i') }}</small>
+                                            <small class="text-muted">Ajouté le {{ $product->created_at->format('d/m/Y H:i') }}</small>
                                         </div>
                                     </li>
                                 @endforeach
@@ -218,8 +218,8 @@
                         @else
                             <div class="text-center py-5">
                                 <i class="fa fa-info-circle fa-3x text-muted mb-3"></i>
-                                <h5 class="text-muted">No recent activity</h5>
-                                <p class="text-muted">Start by adding products to see activity here.</p>
+                                <h5 class="text-muted">Aucune activité récente</h5>
+                                <p class="text-muted">Commencez par ajouter des produits pour voir l'activité ici.</p>
                             </div>
                         @endif
                     </div>

@@ -1,6 +1,6 @@
                                                                                                                                 @extends('layouts.app')
 
-@section('title', 'Product Management - Eat&Drink Platform')
+@section('title', 'Gestion des produits - Plateforme Eat&Drink')
 
 @section('content')
 <!-- Header Section Begin -->
@@ -12,7 +12,7 @@
                     <div class="header__top__left">
                         <ul>
                             <li><i class="fa fa-envelope"></i> {{ $entrepreneur->email }}</li>
-                            <li>Welcome, {{ $entrepreneur->enterprise_name }}!</li>
+                            <li>Bienvenue, {{ $entrepreneur->nom_entreprise }} !</li>
                         </ul>
                     </div>
                 </div>
@@ -44,8 +44,8 @@
                 <nav class="header__menu">
                     <ul>
                         <li><a href="{{ route('entrepreneur.dashboard') }}">Dashboard</a></li>
-                        <li class="active"><a href="{{ route('entrepreneur.products') }}">Products</a></li>
-                        <li><a href="{{ route('entrepreneur.orders') }}">Orders</a></li>
+                        <li class="active"><a href="{{ route('entrepreneur.products') }}">Produits</a></li>
+                        <li><a href="{{ route('entrepreneur.orders') }}">Commandes</a></li>
                     </ul>
                 </nav>
             </div>
@@ -60,7 +60,7 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="breadcrumb__text">
-                    <h2>Product Management</h2>
+                    <h2>Gestion des produits</h2>
                     <div class="breadcrumb__option">
                         <a href="{{ route('entrepreneur.dashboard') }}">Dashboard</a>
                         <span>Products</span>
@@ -94,9 +94,9 @@
                         </div>
                     @endif
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h4>Your Products</h4>
+                        <h4>Vos produits</h4>
                         <button class="btn btn-primary" data-toggle="modal" data-target="#addProductModal">
-                            <i class="fa fa-plus"></i> Add New Product
+                            <i class="fa fa-plus"></i> Ajouter un produit
                         </button>
                     </div>
                     @if($products->count())
@@ -104,9 +104,9 @@
                             <thead class="table-light">
                                 <tr>
                                     <th>Image</th>
-                                    <th>Name</th>
+                                    <th>Nom</th>
                                     <th>Description</th>
-                                    <th>Price</th>
+                                    <th>Prix</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -116,16 +116,16 @@
                                         <td style="width: 120px;">
                                             <img src="{{ asset('storage/' . $product->image_url) }}" alt="{{ $product->name }}" class="img-thumbnail" style="max-width: 100px;">
                                         </td>
-                                        <td>{{ $product->name }}</td>
+                                        <td>{{ $product->nom }}</td>
                                         <td>{{ $product->description }}</td>
-                                        <td>{{ number_format($product->price, 2) }} €</td>
+                                        <td>{{ number_format($product->prix, 2) }} €</td>
                                         <td>
-                                            <a href="{{ route('entrepreneur.products.edit', $product->id) }}" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i> Edit</a>
+                                            <a href="{{ route('entrepreneur.products.edit', $product->id) }}" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i> Modifier</a>
                                             <form action="{{ route('entrepreneur.products.delete', $product->id) }}" method="POST" style="display:inline-block;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this product?')">
-                                                    <i class="fa fa-trash"></i> Delete
+                                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?')">
+                                                    <i class="fa fa-trash"></i> Supprimer
                                                 </button>
                                             </form>
                                         </td>
@@ -138,10 +138,10 @@
                             <div class="card-body">
                                 <div class="text-center py-5">
                                     <i class="fa fa-shopping-bag fa-4x text-muted mb-4"></i>
-                                    <h4 class="text-muted">No Products Yet</h4>
-                                    <p class="text-muted mb-4">Start by adding your first product to begin selling on the platform.</p>
+                                    <h4 class="text-muted">Aucun produit pour l'instant</h4>
+                                    <p class="text-muted mb-4">Commencez par ajouter votre premier produit pour commencer à vendre sur la plateforme.</p>
                                     <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addProductModal">
-                                        <i class="fa fa-plus"></i> Add Your First Product
+                                        <i class="fa fa-plus"></i> Ajouter votre premier produit
                                     </button>
                                 </div>
                             </div>
@@ -159,7 +159,7 @@
                 <form method="POST" action="{{ route('entrepreneur.products.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addProductModalLabel">Add New Product</h5>
+                        <h5 class="modal-title" id="addProductModalLabel">Ajouter un produit</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -176,13 +176,13 @@
                             <input type="number" step="0.01" class="form-control" id="prix" name="prix" required value="{{ old('prix') }}">
                         </div>
                         <div class="mb-3">
-                            <label for="image" class="form-label">Product Image</label>
+                            <label for="image" class="form-label">Image du produit</label>
                             <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Add Product</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                        <button type="submit" class="btn btn-primary">Ajouter</button>
                     </div>
                 </form>
             </div>

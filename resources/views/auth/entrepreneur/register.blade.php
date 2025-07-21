@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Entrepreneur Registration - Eat&Drink Platform')
+@section('title', 'Inscription Entrepreneur - Plateforme Eat&Drink')
 
 @section('content')
 <section class="breadcrumb-section set-bg" data-setbg="{{ asset('img/breadcrumb.jpg') }}">
@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="breadcrumb__text">
-                    <h2>Join Eat&Drink Platform</h2>
+                    <h2>Inscription entrepreneur</h2>
                     <div class="breadcrumb__option">
                         <a href="{{ url('/') }}">Home</a>
                         <span>Register</span>
@@ -42,13 +42,8 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="checkout__input">
-                                    <p>Enterprise Name<span>*</span></p>
-                                    <input type="text" 
-                                           name="nom_entreprise" 
-                                           value="{{ old('nom_entreprise') }}" 
-                                           required 
-                                           class="form-control @error('nom_entreprise') is-invalid @enderror"
-                                           placeholder="Entrez le nom de votre entreprise">
+                                    <label for="nom_entreprise">Nom de l'entreprise</label>
+                                    <input id="nom_entreprise" type="text" class="form-control" name="nom_entreprise" value="{{ old('nom_entreprise') }}" required autofocus placeholder="Entrez le nom de votre entreprise">
                                     @error('nom_entreprise')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -59,13 +54,8 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="checkout__input">
-                                    <p>Email Address<span>*</span></p>
-                                    <input type="email" 
-                                           name="email" 
-                                           value="{{ old('email') }}" 
-                                           required 
-                                           class="form-control @error('email') is-invalid @enderror"
-                                           placeholder="Enter your email address">
+                                    <label for="email">Adresse e-mail</label>
+                                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required placeholder="Entrez votre e-mail">
                                     @error('email')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -76,12 +66,8 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="checkout__input">
-                                    <p>Password<span>*</span></p>
-                                    <input type="password" 
-                                           name="mot_de_passe" 
-                                           required 
-                                           class="form-control @error('mot_de_passe') is-invalid @enderror"
-                                           placeholder="Entrez votre mot de passe">
+                                    <label for="mot_de_passe">Mot de passe</label>
+                                    <input id="mot_de_passe" type="password" class="form-control" name="mot_de_passe" required placeholder="Créez un mot de passe">
                                     @error('mot_de_passe')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -89,12 +75,8 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="checkout__input">
-                                    <p>Confirm Password<span>*</span></p>
-                                    <input type="password" 
-                                           name="mot_de_passe_confirmation" 
-                                           required 
-                                           class="form-control"
-                                           placeholder="Confirmez votre mot de passe">
+                                    <label for="mot_de_passe_confirmation">Confirmez le mot de passe</label>
+                                    <input id="mot_de_passe_confirmation" type="password" class="form-control" name="mot_de_passe_confirmation" required placeholder="Confirmez votre mot de passe">
                                 </div>
                             </div>
                         </div>
@@ -103,8 +85,8 @@
                             <div class="col-lg-12">
                                 <div class="checkout__input__checkbox">
                                     <label for="terms">
-                                        I agree to the 
-                                        <a href="#" class="text-primary">Terms and Conditions</a>
+                                        J'accepte les 
+                                        <a href="#" class="text-primary">Conditions d'utilisation</a>
                                         <input type="checkbox" id="terms" required>
                                         <span class="checkmark"></span>
                                     </label>
@@ -114,17 +96,13 @@
 
                         <div class="row mt-4">
                             <div class="col-lg-12">
-                                <button type="submit" class="site-btn btn-block">
-                                    <i class="fa fa-user-plus"></i> Register Enterprise
-                                </button>
+                                <button type="submit" class="btn btn-primary btn-block">S'inscrire</button>
                             </div>
                         </div>
 
                         <div class="row mt-3">
                             <div class="col-lg-12 text-center">
-                                <p>Already have an account? 
-                                    <a href="{{ route('entrepreneur.login') }}" class="text-primary">Login here</a>
-                                </p>
+                                <p class="mt-3">Vous avez déjà un compte ? <a href="{{ route('entrepreneur.login') }}">Connectez-vous ici</a></p>
                             </div>
                         </div>
                     </form>
