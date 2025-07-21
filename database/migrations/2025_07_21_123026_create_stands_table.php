@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('stands', function (Blueprint $table) {
             $table->id();
-            $table->string('stand_name');
+            $table->string('nom_stand');
             $table->text('description');
-            $table->foreignId('user_id')->constrained('entrepreneurs')->onDelete('cascade');
+            $table->foreignId('utilisateur_id')->constrained('entrepreneurs')->onDelete('cascade');
             $table->timestamps();
         });
     }

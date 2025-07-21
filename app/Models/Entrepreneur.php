@@ -18,12 +18,12 @@ class Entrepreneur extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'enterprise_name',
+        'nom_entreprise',
         'email',
-        'password',
+        'mot_de_passe',
         'role',
-        'status',
-        'rejection_reason',
+        'statut',
+        'raison_rejet',
     ];
 
     /**
@@ -32,7 +32,7 @@ class Entrepreneur extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
+        'mot_de_passe',
         'remember_token',
     ];
 
@@ -45,7 +45,7 @@ class Entrepreneur extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'mot_de_passe' => 'hashed',
         ];
     }
 
@@ -54,7 +54,7 @@ class Entrepreneur extends Authenticatable
      */
     public function isApproved(): bool
     {
-        return $this->status === 'accepted' && $this->role === 'entrepreneur_accepted_approval';
+        return $this->statut === 'Approuvé' && $this->role === 'entrepreneur_approuve';
     }
 
     /**
@@ -62,7 +62,7 @@ class Entrepreneur extends Authenticatable
      */
     public function isWaitingApproval(): bool
     {
-        return $this->status === 'waiting';
+        return $this->statut === 'En attente';
     }
 
     /**
@@ -70,6 +70,6 @@ class Entrepreneur extends Authenticatable
      */
     public function isRejected(): bool
     {
-        return $this->status === 'rejected';
+        return $this->statut === 'Rejeté';
     }
 }

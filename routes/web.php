@@ -39,4 +39,3 @@ Route::prefix('entrepreneur')->name('entrepreneur.')->group(function () {
         Route::post('/logout', [EntrepreneurAuthController::class, 'logout'])->name('logout');
     });
 });
-                                                                    

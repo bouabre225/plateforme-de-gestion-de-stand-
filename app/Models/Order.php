@@ -12,13 +12,13 @@ class Order extends Model
 
     protected $fillable = [
         'stand_id',
-        'order_details',
-        'order_date',
+        'details_commande',
+        'date_commande',
     ];
 
     protected $casts = [
-        'order_details' => 'array',
-        'order_date' => 'datetime',
+        'details_commande' => 'array',
+        'date_commande' => 'datetime',
     ];
 
     public function stand()

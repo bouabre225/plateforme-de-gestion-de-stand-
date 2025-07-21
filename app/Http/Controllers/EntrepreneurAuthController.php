@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
+use App\Models\Stand;
 
 class EntrepreneurAuthController extends Controller
 {
@@ -25,9 +26,9 @@ class EntrepreneurAuthController extends Controller
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'enterprise_name' => 'required|string|max:255',
+            'nom_entreprise' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:entrepreneurs',
-            'password' => 'required|string|min:8|confirmed',
+            'mot_de_passe' => 'required|string|min:8|confirmed',
         ]);
 
         if ($validator->fails()) {
@@ -37,11 +38,18 @@ class EntrepreneurAuthController extends Controller
         }
 
         $entrepreneur = Entrepreneur::create([
-            'enterprise_name' => $request->enterprise_name,
+            'nom_entreprise' => $request->nom_entreprise,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => 'entrepreneur_waiting_approval',
-            'status' => 'waiting',
+            'mot_de_passe' => Hash::make($request->mot_de_passe),
+            'role' => 'entrepreneur_en_attente',
+            'statut' => 'En attente',
+        ]);
+
+        // Automatically create a stand for the entrepreneur
+        Stand::create([
+            'nom_stand' => $request->nom_entreprise . "'s Stand",
+            'description' => 'Default stand description',
+            'utilisateur_id' => $entrepreneur->id,
         ]);
 
         // Log the entrepreneur in
@@ -66,10 +74,10 @@ class EntrepreneurAuthController extends Controller
     {
         $credentials = $request->validate([
             'email' => 'required|email',
-            'password' => 'required',
+            'mot_de_passe' => 'required',
         ]);
 
-        if (Auth::guard('entrepreneur')->attempt($credentials, $request->boolean('remember'))) {
+        if (Auth::guard('entrepreneur')->attempt(['email' => $credentials['email'], 'mot_de_passe' => $credentials['mot_de_passe']], $request->boolean('remember'))) {
             $request->session()->regenerate();
             
             $entrepreneur = Auth::guard('entrepreneur')->user();
@@ -78,7 +86,7 @@ class EntrepreneurAuthController extends Controller
             if ($entrepreneur->isRejected()) {
                 Auth::guard('entrepreneur')->logout();
                 return redirect()->back()->withErrors([
-                    'email' => 'Your account has been rejected. Reason: ' . $entrepreneur->rejection_reason
+                    'email' => 'Votre compte a été rejeté. Raison : ' . $entrepreneur->raison_rejet
                 ]);
             }
             

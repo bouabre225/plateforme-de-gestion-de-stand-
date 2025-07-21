@@ -19,16 +19,18 @@ class EntrepreneurDashboardController extends Controller
     public function index()
     {
         $entrepreneur = Auth::guard('entrepreneur')->user();
-        
-        // For now, we'll return basic dashboard data
-        // Later we'll add products and orders statistics
+        $stand = Stand::where('user_id', $entrepreneur->id)->first();
+        $products = $stand ? $stand->products()->latest()->get() : collect();
+        $totalProducts = $products->count();
+        $recentProducts = $products->take(5); // Show 5 most recent
+        // Orders logic can be added similarly
         $data = [
             'entrepreneur' => $entrepreneur,
-            'totalProducts' => 0, // Will be updated when we create products table
-            'totalOrders' => 0,   // Will be updated when we create orders table
-            'pendingOrders' => 0, // Will be updated when we create orders table
+            'totalProducts' => $totalProducts,
+            'totalOrders' => 0, // Update with real order count if needed
+            'pendingOrders' => 0, // Update with real pending order count if needed
+            'recentProducts' => $recentProducts,
         ];
-        
         return view('entrepreneur.dashboard', $data);
     }
 

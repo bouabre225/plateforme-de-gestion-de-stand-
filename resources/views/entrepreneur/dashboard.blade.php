@@ -197,17 +197,31 @@
             </div>
         </div>
 
-        <!-- Recent Activity (Placeholder) -->
+        <!-- Recent Activity -->
         <div class="row mt-5">
             <div class="col-lg-12">
                 <h4 class="mb-4">Recent Activity</h4>
                 <div class="card">
                     <div class="card-body">
-                        <div class="text-center py-5">
-                            <i class="fa fa-info-circle fa-3x text-muted mb-3"></i>
-                            <h5 class="text-muted">No recent activity</h5>
-                            <p class="text-muted">Start by adding products to see activity here.</p>
-                        </div>
+                        @if(isset($recentProducts) && $recentProducts->count())
+                            <ul class="list-group list-group-flush">
+                                @foreach($recentProducts as $product)
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <img src="{{ asset('storage/' . $product->image_url) }}" alt="{{ $product->name }}" class="img-thumbnail mr-3" style="max-width: 60px;">
+                                        <div>
+                                            <strong>{{ $product->name }}</strong><br>
+                                            <small class="text-muted">Added on {{ $product->created_at->format('d/m/Y H:i') }}</small>
+                                        </div>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @else
+                            <div class="text-center py-5">
+                                <i class="fa fa-info-circle fa-3x text-muted mb-3"></i>
+                                <h5 class="text-muted">No recent activity</h5>
+                                <p class="text-muted">Start by adding products to see activity here.</p>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

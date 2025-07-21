@@ -95,7 +95,7 @@
                     @endif
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <h4>Your Products</h4>
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#addProductModal">
                             <i class="fa fa-plus"></i> Add New Product
                         </button>
                     </div>
@@ -140,7 +140,7 @@
                                     <i class="fa fa-shopping-bag fa-4x text-muted mb-4"></i>
                                     <h4 class="text-muted">No Products Yet</h4>
                                     <p class="text-muted mb-4">Start by adding your first product to begin selling on the platform.</p>
-                                    <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#addProductModal">
+                                    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addProductModal">
                                         <i class="fa fa-plus"></i> Add Your First Product
                                     </button>
                                 </div>
@@ -181,7 +181,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-primary">Add Product</button>
                     </div>
                 </form>

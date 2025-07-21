@@ -12,14 +12,14 @@ class Stand extends Model
     use HasFactory;
 
     protected $fillable = [
-        'stand_name',
+        'nom_stand',
         'description',
-        'user_id',
+        'utilisateur_id',
     ];
 
     public function entrepreneur()
     {
-        return $this->belongsTo(Entrepreneur::class, 'user_id');
+        return $this->belongsTo(Entrepreneur::class, 'utilisateur_id');
     }
 
     public function products()
