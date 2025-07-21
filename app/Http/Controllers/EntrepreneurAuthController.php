@@ -40,7 +40,7 @@ class EntrepreneurAuthController extends Controller
         $entrepreneur = Entrepreneur::create([
             'nom_entreprise' => $request->nom_entreprise,
             'email' => $request->email,
-            'mot_de_passe' => Hash::make($request->mot_de_passe),
+            'mot_de_passe' => $request->mot_de_passe,
             'role' => 'entrepreneur_en_attente',
             'statut' => 'En attente',
         ]);

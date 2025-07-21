@@ -53,7 +53,7 @@ class EntrepreneurDashboardController extends Controller
         $entrepreneur = Auth::guard('entrepreneur')->user();
         $stand = Stand::where('utilisateur_id', $entrepreneur->id)->first();
         if (!$stand) {
-            return redirect()->back()->with('error', 'You do not have a stand.');
+            return redirect()->back()->with('error', 'Vous n\'avez pas de stand.');
         }
         $validated = $request->validate([
             'nom' => 'required|string|max:255',
@@ -68,7 +68,7 @@ class EntrepreneurDashboardController extends Controller
             'prix' => $validated['prix'],
             'image_url' => $imagePath,
         ]);
-        return redirect()->route('entrepreneur.products')->with('success', 'Product added successfully!');
+        return redirect()->route('entrepreneur.products')->with('success', 'Produit ajouté avec succès !');
     }
 
     /**
@@ -94,27 +94,26 @@ class EntrepreneurDashboardController extends Controller
         $stand = Stand::where('utilisateur_id', $entrepreneur->id)->first();
         $product = $stand ? $stand->products()->findOrFail($id) : null;
         if (!$product) {
-            return redirect()->route('entrepreneur.products')->with('error', 'Product not found.');
+            return redirect()->route('entrepreneur.products')->with('error', 'Produit introuvable.');
         }
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
+            'nom' => 'required|string|max:255',
             'description' => 'required|string',
-            'price' => 'required|numeric|min:0',
+            'prix' => 'required|numeric|min:0',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
         if ($request->hasFile('image')) {
-            // Delete old image
             if ($product->image_url) {
                 Storage::disk('public')->delete($product->image_url);
             }
             $imagePath = $request->file('image')->store('products', 'public');
             $product->image_url = $imagePath;
         }
-        $product->name = $validated['name'];
+        $product->nom = $validated['nom'];
         $product->description = $validated['description'];
-        $product->price = $validated['price'];
+        $product->prix = $validated['prix'];
         $product->save();
-        return redirect()->route('entrepreneur.products')->with('success', 'Product updated successfully!');
+        return redirect()->route('entrepreneur.products')->with('success', 'Produit mis à jour avec succès !');
     }
 
     /**

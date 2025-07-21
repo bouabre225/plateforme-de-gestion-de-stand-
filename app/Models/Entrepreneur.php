@@ -45,8 +45,12 @@ class Entrepreneur extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'mot_de_passe' => 'hashed',
         ];
+    }
+
+    public function setMotDePasseAttribute($value)
+    {
+        $this->attributes['mot_de_passe'] = \Illuminate\Support\Facades\Hash::needsRehash($value) ? \Illuminate\Support\Facades\Hash::make($value) : $value;
     }
 
     /**
